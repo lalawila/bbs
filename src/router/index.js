@@ -2,10 +2,12 @@ import * as VueRouter from "vue-router"
 
 import Home from "../pages/Home.vue"
 import About from "../pages/About.vue"
+import Login from "../pages/Login.vue"
+import Signup from "../pages/Signup.vue"
 
 const routes = [
     {
-        name: "index", // 页面名
+        name: "home", // 页面名
         path: "/", // 映射的路径
         component: Home, // 虽配置名为 component 组件，但我更愿意理解为 page 页面
     },
@@ -13,6 +15,16 @@ const routes = [
         name: "about",
         path: "/about",
         component: About,
+    },
+    {
+        name: "login",
+        path: "/login",
+        component: Login,
+    },
+    {
+        name: "signup",
+        path: "/signup",
+        component: Signup,
     },
 ]
 

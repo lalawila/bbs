@@ -14,26 +14,26 @@ http.interceptors.request.use(
             config.headers["Authorization"] = token
         }
         return config
-    },
-    function (error) {
-        // 请求出错
-        return Promise.reject(error)
     }
+    // function (error) {
+    //     // 请求出错
+    //     return Promise.reject(error)
+    // }
 )
 
-http.interceptors.response.use(
-    function (response) {
-        // 成功时执行
-        // 2xx 的状态码
-        return response
-    },
-    function (error) {
-        // 失败时执行
-        // 包括超时，网络错误，所有非 2xx 的状态码
+// http.interceptors.response.use(
+//     function (response) {
+//         // 成功时执行
+//         // 2xx 的状态码
+//         return response
+//     },
+//     function (error) {
+//         // 失败时执行
+//         // 包括超时，网络错误，所有非 2xx 的状态码
 
-        return Promise.reject(error)
-    }
-)
+//         return Promise.reject(error)
+//     }
+// )
 
 export default {
     install: (app) => {
