@@ -5,17 +5,36 @@
                 >三眼鸭</router-link
             >
             <div>
-                <router-link class="link" :to="{ name: 'login' }"
-                    >登录</router-link
-                >
-                <router-link class="link" :to="{ name: 'signup' }"
-                    >注册</router-link
+                <div v-if="userStore.isLogged">
+                    {{ username }}
+                </div>
+                <template v-else
+                    ><router-link class="link" :to="{ name: 'login' }"
+                        >登录</router-link
+                    >
+                    <router-link class="link" :to="{ name: 'signup' }"
+                        >注册</router-link
+                    ></template
                 >
             </div>
         </div>
     </header>
 </template>
-<script></script>
+<script>
+import { useUserStore } from "../stores/user"
+
+export default {
+    setup() {
+        const userStore = useUserStore()
+        return { userStore }
+    },
+    data() {
+        return {
+            posts: [],
+        }
+    },
+}
+</script>
 
 <style scoped>
 .navigator {

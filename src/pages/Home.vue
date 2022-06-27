@@ -9,7 +9,7 @@
     </div>
 </template>
 <script>
-import { mapState } from "pinia"
+import { mapWritableState } from "pinia"
 import { useUserStore } from "../stores/user"
 
 export default {
@@ -19,7 +19,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(useUserStore, ["username"]),
+        ...mapWritableState(useUserStore, ["username"]),
     },
     async mounted() {
         const response = await this.$api.getPosts()
