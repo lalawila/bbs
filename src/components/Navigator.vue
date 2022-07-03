@@ -2,7 +2,7 @@
     <header class="navigator">
         <div class="box">
             <router-link class="title" :to="{ name: 'home' }"
-                >三眼鸭</router-link
+                >三眼鸭的吹牛社区</router-link
             >
             <div>
                 <div v-if="userStore.isLogged">

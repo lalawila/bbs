@@ -9,9 +9,7 @@
             <div>
                 <span>{{ post.author_name }}</span>
             </div>
-            <p>
-                {{ post.excerpt }}
-            </p>
+            <p class="excerpt">{{ post.excerpt }}...</p>
         </router-link>
         <el-pagination
             class="pagination"
@@ -87,7 +85,7 @@ export default {
     margin: 0 auto;
     margin-bottom: 50px;
 }
-.container .post {
+.post {
     border-radius: 20px;
     background-color: #fff;
     padding: 20px;
@@ -97,6 +95,10 @@ export default {
     display: block;
     color: inherit;
     text-decoration: none;
+}
+
+.excerpt {
+    overflow-wrap: anywhere;
 }
 .publish-btn {
     width: 60px;

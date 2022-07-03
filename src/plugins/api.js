@@ -25,6 +25,13 @@ export default {
             })
         }
 
+        function getPostDetail(postId) {
+            // GET
+            // 获取帖子详情
+
+            return http.get(`/posts/${postId}`)
+        }
+
         function login(username, password) {
             // 登录
             return http.post("/tokens", {
@@ -53,6 +60,7 @@ export default {
             login,
             signup,
             getSelfUser,
+            getPostDetail,
         }
     },
 }
