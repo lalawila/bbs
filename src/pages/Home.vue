@@ -13,13 +13,17 @@
                 {{ post.excerpt }}
             </p>
         </router-link>
+        <el-pagination
+            class="pagination"
+            background
+            layout="prev, pager, next"
+            :total="amount"
+            :page-count="limit"
+            :current-page="page"
+            @current-change="pageChange"
+        />
     </div>
-    <el-dialog
-        v-model="dialogVisible"
-        title="发布框"
-        width="600px"
-        :before-close="handleClose"
-    >
+    <el-dialog v-model="dialogVisible" title="发布框" width="600px">
         <el-input
             class="bottom20"
             v-model="title"
@@ -42,22 +46,36 @@ export default {
     components: { Editor },
     data() {
         return {
+            limit: 5,
+            page: 1,
             posts: [],
             dialogVisible: false, // 发布对话框
             title: "", // 标题
             content: "", // 内容
+            amount: 0,
         }
     },
-    async mounted() {
-        const response = await this.$api.getPosts()
-        this.posts = response.data.results
+    mounted() {
+        this.refresh()
     },
     methods: {
+        async refresh() {
+            const response = await this.$api.getPosts({
+                page: this.page,
+                limit: this.limit,
+            })
+            this.posts = response.data.results
+            this.amount = response.data.amount
+        },
         publish() {
             this.$api.createPost(this.title, this.content)
             this.title = ""
             this.content = ""
             this.dialogVisible = false
+        },
+        pageChange(page) {
+            this.page = page
+            this.refresh()
         },
     },
 }
@@ -67,6 +85,7 @@ export default {
 .container {
     max-width: var(--width);
     margin: 0 auto;
+    margin-bottom: 50px;
 }
 .container .post {
     border-radius: 20px;
@@ -98,5 +117,9 @@ export default {
     background-color: teal;
 
     cursor: pointer;
+}
+.pagination {
+    width: max-content;
+    margin: 0 auto;
 }
 </style>
