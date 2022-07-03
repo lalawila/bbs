@@ -6,7 +6,7 @@
             >
             <div>
                 <div v-if="userStore.isLogged">
-                    {{ username }}
+                    {{ userStore.username }}
                 </div>
                 <template v-else
                     ><router-link class="link" :to="{ name: 'login' }"

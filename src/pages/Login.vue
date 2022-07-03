@@ -18,9 +18,13 @@
 </template>
 <script>
 import { ElMessage } from "element-plus"
+import { useUserStore } from "../stores/user.js"
+
 export default {
     data() {
+        const userStore = useUserStore()
         return {
+            userStore,
             username: "",
             password: "",
         }
@@ -28,10 +32,14 @@ export default {
     methods: {
         async login() {
             try {
-                const response = await this.$api.signup(
+                const response = await this.$api.login(
                     this.username,
                     this.password
                 )
+                this.userStore.setToken(response.data.token)
+                this.$router.push({
+                    name: "home",
+                })
             } catch (error) {
                 if (error.response.data.code === 2000) {
                     ElMessage.error("用户名或密码错误。")

@@ -4,9 +4,30 @@
     <router-view></router-view>
 </template>
 <script>
+import { useUserStore } from "./stores/user"
 import Navigator from "./components/Navigator.vue"
+
 export default {
     components: { Navigator },
+    data() {
+        return {
+            userStore: useUserStore(),
+        }
+    },
+    mounted() {
+        this.refreshUserInfo()
+    },
+    methods: {
+        async refreshUserInfo() {
+            if (this.userStore.isLogged) {
+                const response = await this.$api.getSelfUser()
+                this.userStore.setUserInfo({
+                    userId: response.data.user_id,
+                    username: response.data.username,
+                })
+            }
+        },
+    },
 }
 </script>
 <style>
@@ -26,5 +47,8 @@ html {
 }
 body {
     margin: 0;
+}
+.bottom20 {
+    margin-bottom: 20px;
 }
 </style>

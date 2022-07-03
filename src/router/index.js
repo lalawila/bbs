@@ -4,6 +4,7 @@ import Home from "../pages/Home.vue"
 import About from "../pages/About.vue"
 import Login from "../pages/Login.vue"
 import Signup from "../pages/Signup.vue"
+import PostDetail from "../pages/PostDetail.vue"
 
 const routes = [
     {
@@ -25,6 +26,12 @@ const routes = [
         name: "signup",
         path: "/signup",
         component: Signup,
+    },
+
+    {
+        name: "postDetail",
+        path: "/post/:postId",
+        component: PostDetail,
     },
 ]
 

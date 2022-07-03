@@ -5,7 +5,7 @@ export const useUserStore = defineStore("user", {
         return {
             userId: null, // 用户 Id
             username: "", // 用户名
-            avatarUrl: "", // 用户头像
+            // avatarUrl: "", // 用户头像
             token: null,
         }
     },
@@ -18,10 +18,12 @@ export const useUserStore = defineStore("user", {
         setToken(token) {
             this.token = token
         },
-        setUserInfo({ userId = null, username = "", avatarUrl = "" } = {}) {
+        setUserInfo({ userId = null, username = "" } = {}) {
             this.userId = userId
             this.username = username
-            this.avatarUrl = avatarUrl
+        },
+        logout() {
+            this.token = null
         },
     },
     persist: true, // 开启持久化

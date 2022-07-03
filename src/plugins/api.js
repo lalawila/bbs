@@ -1,5 +1,6 @@
 export default {
     install: (app) => {
+        // plugins/http.js 文件中创建的 axios 对象
         const http = app.config.globalProperties.$http
 
         function getPosts({ page = 1, limit = 10 } = {}) {
@@ -11,6 +12,16 @@ export default {
                     page,
                     limit,
                 },
+            })
+        }
+
+        function createPost(title, content) {
+            // POST
+            // 发布帖子
+
+            return http.post("/posts", {
+                title,
+                content,
             })
         }
 
@@ -38,6 +49,7 @@ export default {
         // 将 api 绑定到全局属性中
         app.config.globalProperties.$api = {
             getPosts,
+            createPost,
             login,
             signup,
             getSelfUser,
