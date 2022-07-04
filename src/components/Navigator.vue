@@ -6,16 +6,29 @@
             >
             <div>
                 <div v-if="userStore.isLogged">
-                    {{ userStore.username }}
+                    <el-dropdown>
+                        <label>{{ userStore.username }}</label>
+                        <template #dropdown>
+                            <el-dropdown-menu>
+                                <el-dropdown-item @click="logout"
+                                    >退出登录</el-dropdown-item
+                                >
+                            </el-dropdown-menu>
+                        </template>
+                    </el-dropdown>
                 </div>
-                <template v-else
-                    ><router-link class="link" :to="{ name: 'login' }"
-                        >登录</router-link
+                <template v-else>
+                    <el-button text
+                        ><router-link class="link" :to="{ name: 'login' }"
+                            >登录</router-link
+                        ></el-button
                     >
-                    <router-link class="link" :to="{ name: 'signup' }"
-                        >注册</router-link
-                    ></template
-                >
+                    <el-button text>
+                        <router-link class="link" :to="{ name: 'signup' }"
+                            >注册</router-link
+                        >
+                    </el-button>
+                </template>
             </div>
         </div>
     </header>
@@ -24,14 +37,17 @@
 import { useUserStore } from "../stores/user"
 
 export default {
-    setup() {
-        const userStore = useUserStore()
-        return { userStore }
-    },
     data() {
+        const userStore = useUserStore()
         return {
+            userStore,
             posts: [],
         }
+    },
+    methods: {
+        logout() {
+            this.userStore.logout()
+        },
     },
 }
 </script>
@@ -59,13 +75,5 @@ export default {
 .navigator .box .title {
     font-size: 20px;
     font-weight: bold;
-}
-
-.navigator .link {
-    padding: 5px 20px;
-    border-radius: 4px;
-}
-.navigator .link:hover {
-    background-color: #eee;
 }
 </style>

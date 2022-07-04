@@ -2,8 +2,8 @@
     <div ref="viewer"></div>
 </template>
 <script>
-import Editor from "@toast-ui/editor"
-import "@toast-ui/editor/dist/toastui-editor.css"
+import Viewer from "@toast-ui/editor/dist/toastui-editor-viewer"
+import "@toast-ui/editor/dist/toastui-editor-viewer.css"
 
 export default {
     props: ["content"],
@@ -13,16 +13,15 @@ export default {
         }
     },
     async mounted() {
-        this.viewer = new Editor({
+        this.viewer = new Viewer({
             el: this.$refs.viewer,
             initialValue: this.content,
-            viewer: true,
         })
     },
     watch: {
-        // content(newValue) {
-        //     this.viewer.setMarkdown(newValue)
-        // },
+        content(newValue) {
+            this.viewer.setMarkdown(newValue)
+        },
     },
 }
 </script>

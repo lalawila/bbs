@@ -6,11 +6,15 @@ import pinia from "./pinia"
 
 import http from "./plugins/http"
 import api from "./plugins/api"
+import common from "./plugins/common"
 
 import ElementPlus from "element-plus"
 import "element-plus/dist/index.css"
 
 const app = createApp(App)
+
+// 挂载 common
+app.use(common)
 
 // 挂载 pinia
 app.use(pinia)
