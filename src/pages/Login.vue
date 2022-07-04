@@ -1,17 +1,17 @@
 <template>
     <div class="login">
-        <h1>登录页面</h1>
+        <h1>登录</h1>
         <el-input size="large" placeholder="请输入用户名" v-model="username">
             <template #prepend>
-                <div class="pre">用户名</div>
+                <label>用户名</label>
             </template>
         </el-input>
         <el-input size="large" placeholder="请输入密码" v-model="password">
             <template #prepend>
-                <div class="pre">密码</div>
+                <label>密码</label>
             </template>
         </el-input>
-        <el-button type="primary" size="large" round @click="login"
+        <el-button class="btn" type="primary" size="large" round @click="login"
             >登录</el-button
         >
     </div>
@@ -65,13 +65,12 @@ export default {
 
     gap: 20px;
 }
-.login h1 {
+h1 {
     margin: 0;
 }
 
-.login .pre {
-    width: 40px;
-
+label {
+    width: 50px;
     text-align: center;
 }
 </style>

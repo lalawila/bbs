@@ -1,14 +1,14 @@
 <template>
-    <div class="login">
-        <h1>注册页面</h1>
+    <div class="signup">
+        <h1>注册</h1>
         <el-input size="large" placeholder="请输入用户名" v-model="username">
             <template #prepend>
-                <div class="pre">用户名</div>
+                <div>用户名</div>
             </template>
         </el-input>
         <el-input size="large" placeholder="请输入密码" v-model="password">
             <template #prepend>
-                <div class="pre">密码</div>
+                <div>密码</div>
             </template>
         </el-input>
         <el-input
@@ -17,10 +17,10 @@
             v-model="passwordAgin"
         >
             <template #prepend>
-                <div class="pre">重复密码</div>
+                <div>重复密码</div>
             </template>
         </el-input>
-        <el-button type="primary" size="large" round @click="signup"
+        <el-button class="btn" type="primary" size="large" round @click="signup"
             >注册</el-button
         >
     </div>
@@ -61,7 +61,7 @@ export default {
 }
 </script>
 <style scoped>
-.login {
+.signup {
     width: 360px;
     padding: 20px;
     border-radius: 8px;
@@ -76,13 +76,15 @@ export default {
 
     gap: 20px;
 }
-.login h1 {
+h1 {
     margin: 0;
 }
 
-.login .pre {
-    width: 40px;
-
+label {
+    width: 50px;
     text-align: center;
+}
+.btn {
+    width: 100%;
 }
 </style>

@@ -71,6 +71,7 @@ export default {
                 page: this.page,
                 limit: this.limit,
             })
+            console.log(response.data)
             this.posts = response.data.results
             this.amount = response.data.amount
         },
