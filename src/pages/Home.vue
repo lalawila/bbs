@@ -14,6 +14,10 @@
             </div>
             <p class="excerpt">{{ post.excerpt }}...</p>
             <div class="bottom">
+                <div class="item" title="阅读数">
+                    <el-icon><View /></el-icon>
+                    <span>{{ post.visit_amount }}</span>
+                </div>
                 <div class="item" title="点赞数">
                     <el-icon><Pointer /></el-icon
                     ><span>{{ post.thumb_amount }}</span>
@@ -29,7 +33,7 @@
             background
             layout="prev, pager, next"
             :total="amount"
-            :page-count="limit"
+            :page-size="limit"
             :current-page="page"
             @current-change="pageChange"
         />
@@ -54,12 +58,12 @@
 import { useUserStore } from "../stores/user"
 import { ElMessage } from "element-plus"
 import { ElNotification } from "element-plus"
-import { ChatRound, Pointer } from "@element-plus/icons-vue"
+import { ChatRound, Pointer, View } from "@element-plus/icons-vue"
 
 import Editor from "../components/Editor.vue"
 
 export default {
-    components: { Editor, ChatRound, Pointer },
+    components: { Editor, ChatRound, Pointer, View },
     data() {
         const userStore = useUserStore()
         return {
@@ -82,7 +86,6 @@ export default {
                 page: this.page,
                 limit: this.limit,
             })
-            console.log(response.data)
             this.posts = response.data.results
             this.amount = response.data.amount
         },
@@ -148,8 +151,6 @@ export default {
 .info {
     display: flex;
     justify-content: space-between;
-
-    font-size: 14px;
 }
 
 .time {

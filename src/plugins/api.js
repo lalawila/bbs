@@ -65,6 +65,26 @@ export default {
             })
         }
 
+        function thumbUp(postId) {
+            // 点赞
+            return http.post(`/posts/${postId}/thumb`)
+        }
+
+        function cancelThumbUp(postId) {
+            // 取消点赞
+            return http.delete(`/posts/${postId}/thumb`)
+        }
+
+        function uploadImage(file) {
+            // 上传图片
+            const formData = new FormData()
+            formData.append("image", file)
+
+            return http.post("/images", formData, {
+                "Content-Type": "multipart/form-data",
+            })
+        }
+
         // 将 api 绑定到全局属性中
         app.config.globalProperties.$api = {
             getPosts,
@@ -75,6 +95,9 @@ export default {
             getPostDetail,
             getDisscussions,
             createDisscussions,
+            thumbUp,
+            cancelThumbUp,
+            uploadImage,
         }
     },
 }

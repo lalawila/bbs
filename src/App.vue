@@ -51,4 +51,7 @@ body {
 .bottom20 {
     margin-bottom: 20px;
 }
+.right10 {
+    margin-right: 10px;
+}
 </style>

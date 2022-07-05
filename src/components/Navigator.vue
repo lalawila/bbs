@@ -1,7 +1,7 @@
 <template>
     <header class="navigator">
         <div class="box">
-            <router-link class="title" :to="{ name: 'home' }"
+            <router-link class="brand" :to="{ name: 'home' }"
                 >三眼鸭的吹牛社区</router-link
             >
             <div>
@@ -10,7 +10,7 @@
                         <label>{{ userStore.username }}</label>
                         <template #dropdown>
                             <el-dropdown-menu>
-                                <el-dropdown-item @click="logout"
+                                <el-dropdown-item @click="userStore.logout"
                                     >退出登录</el-dropdown-item
                                 >
                             </el-dropdown-menu>
@@ -19,14 +19,12 @@
                 </div>
                 <template v-else>
                     <el-button text
-                        ><router-link class="link" :to="{ name: 'login' }"
+                        ><router-link :to="{ name: 'login' }"
                             >登录</router-link
                         ></el-button
                     >
                     <el-button text>
-                        <router-link class="link" :to="{ name: 'signup' }"
-                            >注册</router-link
-                        >
+                        <router-link :to="{ name: 'signup' }">注册</router-link>
                     </el-button>
                 </template>
             </div>
@@ -43,11 +41,6 @@ export default {
             userStore,
             posts: [],
         }
-    },
-    methods: {
-        logout() {
-            this.userStore.logout()
-        },
     },
 }
 </script>
@@ -72,7 +65,7 @@ export default {
     text-decoration: none;
     color: #333;
 }
-.navigator .box .title {
+.navigator .box .brand {
     font-size: 20px;
     font-weight: bold;
 }

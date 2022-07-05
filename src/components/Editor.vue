@@ -21,6 +21,12 @@ export default {
             events: {
                 change: this.onchange,
             },
+            hooks: {
+                addImageBlobHook: async (file, callback) => {
+                    const response = await this.$api.uploadImage(file)
+                    callback(response.data.image_url, "image")
+                },
+            },
         })
     },
     methods: {
