@@ -73,4 +73,7 @@ label {
     width: 50px;
     text-align: center;
 }
+.btn {
+    width: 100%;
+}
 </style>

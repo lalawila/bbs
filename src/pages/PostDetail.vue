@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="detail">
-            <h1 class="title">{{ title }}</h1>
+            <h2 class="title">{{ title }}</h2>
             <Viewer :content="content" />
         </div>
         <div class="operations">

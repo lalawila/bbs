@@ -5,7 +5,7 @@
             class="post"
             v-for="post in posts"
         >
-            <h2 class="title">{{ post.title }}</h2>
+            <h4 class="title">{{ post.title }}</h4>
             <div class="info">
                 <span>{{ post.author_name }}</span>
                 <span class="time">{{
@@ -13,6 +13,16 @@
                 }}</span>
             </div>
             <p class="excerpt">{{ post.excerpt }}...</p>
+            <div class="bottom">
+                <div class="item" title="点赞数">
+                    <el-icon><Pointer /></el-icon
+                    ><span>{{ post.thumb_amount }}</span>
+                </div>
+                <div class="item" title="讨论数">
+                    <el-icon><ChatRound /></el-icon
+                    ><span>{{ post.discussion_amount }}</span>
+                </div>
+            </div>
         </router-link>
         <el-pagination
             class="pagination"
@@ -44,11 +54,12 @@
 import { useUserStore } from "../stores/user"
 import { ElMessage } from "element-plus"
 import { ElNotification } from "element-plus"
+import { ChatRound, Pointer } from "@element-plus/icons-vue"
 
 import Editor from "../components/Editor.vue"
 
 export default {
-    components: { Editor },
+    components: { Editor, ChatRound, Pointer },
     data() {
         const userStore = useUserStore()
         return {
@@ -137,6 +148,8 @@ export default {
 .info {
     display: flex;
     justify-content: space-between;
+
+    font-size: 14px;
 }
 
 .time {
@@ -146,6 +159,13 @@ export default {
 
 .excerpt {
     overflow-wrap: anywhere;
+
+    /* 最多显示 3 行 */
+    /* 超出显示省略号 */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 .publish-btn {
     width: 60px;
@@ -170,5 +190,22 @@ export default {
 .pagination {
     width: max-content;
     margin: 0 auto;
+}
+
+.bottom {
+    display: flex;
+    justify-content: flex-end;
+
+    gap: 20px;
+
+    color: #999;
+    font-size: 14px;
+}
+
+.bottom .item {
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
 }
 </style>
