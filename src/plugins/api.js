@@ -53,9 +53,14 @@ export default {
             return http.get("/self/user")
         }
 
-        function getDisscussions(postId) {
+        function getDisscussions(postId, { page = 1, limit = 10 } = {}) {
             // 获取帖子的讨论
-            return http.get(`/posts/${postId}/discussions`)
+            return http.get(`/posts/${postId}/discussions`, {
+                params: {
+                    page,
+                    limit,
+                },
+            })
         }
 
         function createDisscussions(postId, content) {

@@ -51,6 +51,8 @@
             <Viewer :content="discussion.content" />
         </div>
         <el-empty v-if="disscussionAmount == 0" description="还没有讨论哦~" />
+        <p v-else-if="isNomore" class="nomore">没有更多了</p>
+        <el-backtop :right="40" :bottom="40" />
     </div>
 </template>
 <script>
@@ -69,6 +71,8 @@ export default {
         const userStore = useUserStore()
         return {
             userStore,
+            page: 1,
+            limit: 10,
             title: "",
             content: "",
             authorName: "",
@@ -80,13 +84,52 @@ export default {
             isThumb: false,
             thumbAmount: null,
             visitAmount: null,
+            getting: false,
         }
     },
     mounted() {
         this.refresh()
         this.refreshDiscussions()
+
+        // 下拉加载：1. 绑定滚动事件
+        window.addEventListener("scroll", this.onScroll)
+    },
+    unmounted() {
+        // 离开(卸载)页面的时候
+        console.log("离开(卸载)页面的时候")
+        window.removeEventListener("scroll", this.onScroll)
+    },
+    computed: {
+        isNomore() {
+            return this.discussions.length == this.disscussionAmount
+        },
     },
     methods: {
+        async onScroll() {
+            // 下拉加载：2. 判断滚动条接近底部，100 个像素以内
+            let bottomOfWindow =
+                document.documentElement.scrollTop +
+                    document.documentElement.clientHeight >
+                document.documentElement.offsetHeight - 100
+            // scrollTop：滚动上去的距离
+            // clientHeight：元素可见区域的高度
+            // offsetHeight：整个元素的高度
+
+            // console.log("scrollTop:", document.documentElement.scrollTop)
+            // console.log("innerHeight:", window.innerHeight)
+            // console.log("offsetHeight:", document.documentElement.offsetHeight)
+            if (bottomOfWindow) {
+                // 如果没有更多数据，退出获取
+                if (this.isNomore) return
+
+                if (this.getting) return
+
+                this.getting = true
+                this.page += 1
+                await this.refreshDiscussions()
+                this.getting = false
+            }
+        },
         async refresh() {
             const response = await this.$api.getPostDetail(
                 this.$route.params.postId
@@ -103,11 +146,15 @@ export default {
         async refreshDiscussions() {
             // 刷新讨论
             const response = await this.$api.getDisscussions(
-                this.$route.params.postId
+                this.$route.params.postId,
+                {
+                    page: this.page,
+                    limit: this.limit,
+                }
             )
 
             this.disscussionAmount = response.data.amount
-            this.discussions = response.data.results
+            this.discussions = this.discussions.concat(response.data.results)
         },
         async publishDiscussion() {
             // 发布讨论
@@ -213,5 +260,9 @@ export default {
     border-radius: 8px;
 
     margin: 20px 0;
+}
+.nomore {
+    text-align: center;
+    font-size: 14px;
 }
 </style>
