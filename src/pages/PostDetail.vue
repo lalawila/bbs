@@ -135,6 +135,10 @@ export default {
             this.editorVisible = !this.editorVisible
         },
         async thumbUp() {
+            if (!this.userStore.isLogged) {
+                ElMessage.info("请先登录。")
+                return
+            }
             // 点赞
             const response = await this.$api.thumbUp(this.$route.params.postId)
             console.log(response.data)
@@ -142,6 +146,10 @@ export default {
             this.isThumb = true
         },
         async cancelThumbUp() {
+            if (!this.userStore.isLogged) {
+                ElMessage.info("请先登录。")
+                return
+            }
             // 取消点赞
             const response = await this.$api.cancelThumbUp(
                 this.$route.params.postId

@@ -1,5 +1,5 @@
 <template>
-    <div class="theme" :class="themeStore.themeClass">
+    <div class="theme" :class="themeClass">
         <Navigator />
         <!-- 路由匹配到的组件将渲染在这里 -->
         <router-view></router-view>
@@ -19,8 +19,14 @@ export default {
             userStore: useUserStore(),
         }
     },
+
     mounted() {
         this.refreshUserInfo()
+    },
+    computed: {
+        themeClass() {
+            return this.themeStore.isDark ? "dark-theme" : "light-theme"
+        },
     },
     methods: {
         async refreshUserInfo() {
@@ -52,20 +58,15 @@ body {
     margin: 0;
 }
 
-.bottom20 {
-    margin-bottom: 20px;
-}
-.right10 {
-    margin-right: 10px;
-}
-</style>
-<style scoped>
 .theme {
+    min-height: 100vh;
+
     background-color: var(--main-back-color);
     color: var(--text-color);
 
-    transition: all 1s;
+    transition: background-color 1s, color 1s;
 }
+
 .light-theme {
     /* 页面背景颜色 */
     --main-back-color: #eee;
@@ -78,5 +79,18 @@ body {
     --main-back-color: black;
     --back-color: #333;
     --text-color: white;
+}
+
+.dark-theme .el-button.is-text:not(.is-disabled):hover,
+.dark-theme .el-button.is-text:not(.is-disabled):active,
+.dark-theme .el-button.is-text:not(.is-disabled):focus {
+    background-color: black;
+}
+
+.bottom20 {
+    margin-bottom: 20px;
+}
+.right10 {
+    margin-right: 10px;
 }
 </style>

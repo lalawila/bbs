@@ -57,7 +57,7 @@ export default {
 
     margin: 0 auto;
 
-    background-color: white;
+    background-color: var(--back-color);
 
     display: flex;
     flex-direction: column;
