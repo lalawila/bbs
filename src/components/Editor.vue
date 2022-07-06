@@ -4,11 +4,15 @@
 <script>
 import Editor from "@toast-ui/editor"
 import "@toast-ui/editor/dist/toastui-editor.css"
+import "@toast-ui/editor/dist/theme/toastui-editor-dark.css"
+
+import { useThemeStore } from "../stores/theme"
 
 export default {
     props: ["modelValue"],
     data() {
-        return { editor: null }
+        const themeStore = useThemeStore()
+        return { themeStore, editor: null }
     },
     async mounted() {
         this.editor = new Editor({
@@ -18,6 +22,7 @@ export default {
             height: "500px",
             initialEditType: "wysiwyg",
             previewStyle: "tab",
+            theme: this.themeStore.isDark ? "dark" : "light",
             events: {
                 change: this.onchange,
             },

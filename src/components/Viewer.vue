@@ -4,11 +4,16 @@
 <script>
 import Viewer from "@toast-ui/editor/dist/toastui-editor-viewer"
 import "@toast-ui/editor/dist/toastui-editor-viewer.css"
+import "@toast-ui/editor/dist/theme/toastui-editor-dark.css"
+
+import { useThemeStore } from "../stores/theme"
 
 export default {
     props: ["content"],
     data() {
+        const themeStore = useThemeStore()
         return {
+            themeStore,
             viewer: null,
         }
     },
@@ -16,6 +21,7 @@ export default {
         this.viewer = new Viewer({
             el: this.$refs.viewer,
             initialValue: this.content,
+            theme: this.themeStore.isDark ? "dark" : "light",
         })
     },
     watch: {

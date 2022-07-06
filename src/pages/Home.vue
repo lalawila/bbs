@@ -130,11 +130,11 @@ export default {
 .container {
     max-width: var(--width);
     margin: 0 auto;
-    margin-bottom: 50px;
+    padding-bottom: 50px;
 }
 .post {
     border-radius: 8px;
-    background-color: #fff;
+    background-color: var(--back-color);
     padding: 20px;
 
     margin: 20px 0;

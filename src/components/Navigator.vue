@@ -4,19 +4,24 @@
             <router-link class="brand" :to="{ name: 'home' }"
                 >三眼鸭的吹牛社区</router-link
             >
-            <div>
-                <div v-if="userStore.isLogged">
-                    <el-dropdown>
-                        <label>{{ userStore.username }}</label>
-                        <template #dropdown>
-                            <el-dropdown-menu>
-                                <el-dropdown-item @click="userStore.logout"
-                                    >退出登录</el-dropdown-item
-                                >
-                            </el-dropdown-menu>
-                        </template>
-                    </el-dropdown>
-                </div>
+            <div class="right">
+                <el-switch
+                    v-model="themeStore.isDark"
+                    size="large"
+                    inline-prompt
+                    :active-icon="MoonNight"
+                    :inactive-icon="Sunrise"
+                />
+                <el-dropdown v-if="userStore.isLogged">
+                    <label>{{ userStore.username }}</label>
+                    <template #dropdown>
+                        <el-dropdown-menu>
+                            <el-dropdown-item @click="userStore.logout"
+                                >退出登录</el-dropdown-item
+                            >
+                        </el-dropdown-menu>
+                    </template>
+                </el-dropdown>
                 <template v-else>
                     <el-button text
                         ><router-link :to="{ name: 'login' }"
@@ -32,13 +37,23 @@
     </header>
 </template>
 <script>
+import { Sunrise, MoonNight } from "@element-plus/icons-vue"
 import { useUserStore } from "../stores/user"
+import { useThemeStore } from "../stores/theme"
 
 export default {
+    setup() {
+        return {
+            Sunrise,
+            MoonNight,
+        }
+    },
     data() {
         const userStore = useUserStore()
+        const themeStore = useThemeStore()
         return {
             userStore,
+            themeStore,
             posts: [],
         }
     },
@@ -48,7 +63,7 @@ export default {
 <style scoped>
 .navigator {
     margin-bottom: 40px;
-    background-color: white;
+    background-color: var(--back-color);
 }
 
 .navigator .box {
@@ -63,10 +78,16 @@ export default {
 }
 .navigator .box a {
     text-decoration: none;
-    color: #333;
+    color: var(--text-color);
 }
 .navigator .box .brand {
     font-size: 20px;
     font-weight: bold;
+}
+
+.right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 </style>

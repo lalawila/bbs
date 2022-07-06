@@ -156,12 +156,12 @@ export default {
 .container {
     max-width: var(--width);
     margin: 0 auto;
-    margin-bottom: 50px;
+    padding-bottom: 50px;
 }
 
 .detail {
     padding: 20px;
-    background-color: white;
+    background-color: var(--back-color);
 
     border-radius: 8px;
 
@@ -200,7 +200,7 @@ export default {
 
 .discussion {
     padding: 20px;
-    background-color: white;
+    background-color: var(--back-color);
 
     border-radius: 8px;
 
