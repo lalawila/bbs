@@ -6,26 +6,38 @@
             v-for="post in posts"
         >
             <h4 class="title">{{ post.title }}</h4>
-            <div class="info">
-                <span>{{ post.author_name }}</span>
-                <span class="time">{{
-                    $common.beautifulTime(post.publish_time)
-                }}</span>
-            </div>
-            <p class="excerpt">{{ post.excerpt }}...</p>
-            <div class="bottom">
-                <div class="item" title="阅读数">
-                    <el-icon><View /></el-icon>
-                    <span>{{ post.visit_amount }}</span>
+            <div class="box">
+                <div class="content">
+                    <div class="info">
+                        <span>{{ post.author_name }}</span>
+                        <span class="time">{{
+                            $common.beautifulTime(post.publish_time)
+                        }}</span>
+                    </div>
+                    <div class="grow">
+                        <p class="excerpt">{{ post.excerpt }}...</p>
+                    </div>
+                    <div class="bottom">
+                        <div class="item" title="阅读数">
+                            <el-icon><View /></el-icon>
+                            <span>{{ post.visit_amount }}</span>
+                        </div>
+                        <div class="item" title="点赞数">
+                            <el-icon><Pointer /></el-icon
+                            ><span>{{ post.thumb_amount }}</span>
+                        </div>
+                        <div class="item" title="讨论数">
+                            <el-icon><ChatRound /></el-icon
+                            ><span>{{ post.discussion_amount }}</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="item" title="点赞数">
-                    <el-icon><Pointer /></el-icon
-                    ><span>{{ post.thumb_amount }}</span>
-                </div>
-                <div class="item" title="讨论数">
-                    <el-icon><ChatRound /></el-icon
-                    ><span>{{ post.discussion_amount }}</span>
-                </div>
+                <img
+                    v-if="post.thumbnail_url"
+                    class="thumbnail"
+                    :src="post.thumbnail_url"
+                    alt="thumbnail"
+                />
             </div>
         </router-link>
         <el-pagination
@@ -148,6 +160,25 @@ export default {
     margin-bottom: 10px;
 }
 
+.box {
+    display: flex;
+    gap: 20px;
+}
+
+.content {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.thumbnail {
+    width: 180px;
+    height: 120px;
+
+    object-fit: cover;
+}
+
 .info {
     display: flex;
     justify-content: space-between;
@@ -158,14 +189,21 @@ export default {
     font-size: 14px;
 }
 
+.grow {
+    flex: 1;
+}
+
 .excerpt {
+    flex: 1;
+
+    /* 允许换行 */
     overflow-wrap: anywhere;
 
-    /* 最多显示 3 行 */
+    /* 最多显示 2 行 */
     /* 超出显示省略号 */
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
 .publish-btn {
