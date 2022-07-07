@@ -68,8 +68,7 @@
 </template>
 <script>
 import { useUserStore } from "../stores/user"
-import { ElMessage } from "element-plus"
-import { ElNotification } from "element-plus"
+import { ElMessage, ElNotification } from "element-plus"
 import { ChatRound, Pointer, View } from "@element-plus/icons-vue"
 
 import Editor from "../components/Editor.vue"
