@@ -89,10 +89,10 @@ export default {
         }
     },
     mounted() {
-        this.refresh()
+        this.getPosts()
     },
     methods: {
-        async refresh() {
+        async getPosts() {
             const response = await this.$api.getPosts({
                 page: this.page,
                 limit: this.limit,
@@ -124,7 +124,7 @@ export default {
         },
         pageChange(page) {
             this.page = page
-            this.refresh()
+            this.getPosts()
         },
         showDialog() {
             if (!this.userStore.isLogged) {

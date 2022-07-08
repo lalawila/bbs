@@ -88,8 +88,8 @@ export default {
         }
     },
     mounted() {
-        this.refresh()
-        this.refreshDiscussions()
+        this.getDetail()
+        this.getDiscussions()
 
         // 下拉加载：1. 绑定滚动事件
         window.addEventListener("scroll", this.onScroll)
@@ -119,18 +119,19 @@ export default {
             // console.log("innerHeight:", window.innerHeight)
             // console.log("offsetHeight:", document.documentElement.offsetHeight)
             if (bottomOfWindow) {
-                // 如果没有更多数据，退出获取
+                // 如果没有更多数据则退出
                 if (this.isNomore) return
 
+                // 如果正在获取数据则退出
                 if (this.getting) return
 
                 this.getting = true
                 this.page += 1
-                await this.refreshDiscussions()
+                await this.getDiscussions()
                 this.getting = false
             }
         },
-        async refresh() {
+        async getDetail() {
             const response = await this.$api.getPostDetail(
                 this.$route.params.postId
             )
@@ -143,7 +144,7 @@ export default {
             this.thumbAmount = response.data.thumb_amount
             this.visitAmount = response.data.visit_amount
         },
-        async refreshDiscussions() {
+        async getDiscussions() {
             // 刷新讨论
             const response = await this.$api.getDisscussions(
                 this.$route.params.postId,
@@ -171,8 +172,11 @@ export default {
                 message: "讨论发布成功~",
                 type: "success",
             })
+
             // 刷新数据
-            this.refreshDiscussions()
+            this.discussions = []
+            this.page = 1
+            this.getDiscussions()
         },
         showEditor() {
             if (!this.userStore.isLogged) {
