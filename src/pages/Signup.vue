@@ -1,23 +1,36 @@
 <template>
     <div class="signup">
         <h1>注册</h1>
-        <el-input size="large" placeholder="请输入用户名" v-model="username">
+        <el-input
+            id="username"
+            size="large"
+            placeholder="请输入用户名"
+            v-model="username"
+        >
             <template #prepend>
-                <div>用户名</div>
-            </template>
-        </el-input>
-        <el-input size="large" placeholder="请输入密码" v-model="password">
-            <template #prepend>
-                <div>密码</div>
+                <label for="username">用户名</label>
             </template>
         </el-input>
         <el-input
+            id="password"
             size="large"
-            placeholder="请重复输入密码"
-            v-model="passwordAgin"
+            placeholder="请输入密码"
+            v-model="password"
+            show-password
         >
             <template #prepend>
-                <div>重复密码</div>
+                <label for="password">密码</label>
+            </template>
+        </el-input>
+        <el-input
+            id="passwrod-again"
+            size="large"
+            placeholder="请重复输入密码"
+            v-model="passwordAgain"
+            show-password
+        >
+            <template #prepend>
+                <label for="passwrod-again">重复密码</label>
             </template>
         </el-input>
         <el-button class="btn" type="primary" size="large" round @click="signup"
@@ -32,12 +45,12 @@ export default {
         return {
             username: "",
             password: "",
-            passwordAgin: "",
+            passwordAgain: "",
         }
     },
     methods: {
         async signup() {
-            if (this.password != this.passwordAgin) {
+            if (this.password != this.passwordAgain) {
                 ElMessage.error("前后密码不一致。")
                 return
             }
@@ -47,10 +60,10 @@ export default {
                     this.username,
                     this.password
                 )
-
-                if (response.status == 200) {
-                    const userResponse = await this.$api.getSelfUser()
-                }
+                this.userStore.setToken(response.data.token)
+                this.$router.push({
+                    path: this.$route.query.redirect,
+                })
             } catch (error) {
                 if (error.response.data.code === 2000) {
                     ElMessage.error("用户名或密码错误。")
@@ -68,7 +81,7 @@ export default {
 
     margin: 0 auto;
 
-    background-color: var(--back-color);
+    background-color: var(--bg-color);
 
     display: flex;
     flex-direction: column;

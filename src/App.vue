@@ -19,7 +19,6 @@ export default {
             userStore: useUserStore(),
         }
     },
-
     mounted() {
         this.refreshUserInfo()
     },
@@ -35,6 +34,7 @@ export default {
                 this.userStore.setUserInfo({
                     userId: response.data.user_id,
                     username: response.data.username,
+                    avatarUrl: response.data.avatar_url,
                 })
             }
         },
@@ -61,7 +61,7 @@ body {
 .theme {
     min-height: 100vh;
 
-    background-color: var(--main-back-color);
+    background-color: var(--main-bg-color);
     color: var(--text-color);
 
     transition: background-color 1s, color 1s;
@@ -69,15 +69,15 @@ body {
 
 .light-theme {
     /* 页面背景颜色 */
-    --main-back-color: #eee;
+    --main-bg-color: #eee;
     /* 元素背景颜色 */
-    --back-color: white;
+    --bg-color: white;
     /* 文本颜色 */
     --text-color: #333;
 }
 .dark-theme {
-    --main-back-color: black;
-    --back-color: #333;
+    --main-bg-color: black;
+    --bg-color: #333;
     --text-color: white;
 }
 
@@ -92,5 +92,8 @@ body {
 }
 .right10 {
     margin-right: 10px;
+}
+.right20 {
+    margin-right: 20px;
 }
 </style>

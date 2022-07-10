@@ -1,5 +1,8 @@
 <template>
-    <div ref="editor"></div>
+    <div
+        ref="editor"
+        :class="{ 'toastui-editor-dark': themeStore.isDark }"
+    ></div>
 </template>
 <script>
 import Editor from "@toast-ui/editor"
@@ -22,7 +25,7 @@ export default {
             height: "500px",
             initialEditType: "wysiwyg",
             previewStyle: "tab",
-            theme: this.themeStore.isDark ? "dark" : "light",
+            // theme: this.themeStore.isDark ? "dark" : "light",
             events: {
                 change: this.onchange,
             },

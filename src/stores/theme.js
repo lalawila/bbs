@@ -6,5 +6,15 @@ export const useThemeStore = defineStore("theme", {
             isDark: false,
         }
     },
+    actions: {
+        toggleTheme() {
+            this.isDark = !this.isDark
+            if (this.isDark) {
+                document.documentElement.classList.add("dark")
+            } else {
+                document.documentElement.classList.remove("dark")
+            }
+        },
+    },
     persist: true, // 开启持久化
 })

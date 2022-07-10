@@ -10,6 +10,9 @@ import common from "./plugins/common"
 
 import ElementPlus from "element-plus"
 import "element-plus/dist/index.css"
+import "element-plus/theme-chalk/dark/css-vars.css"
+
+import Avatar from "./components/Avatar.vue"
 
 const app = createApp(App)
 
@@ -30,5 +33,8 @@ app.use(http)
 
 // 挂载 api
 app.use(api)
+
+// 头像作为全局组件
+app.component("Avatar", Avatar)
 
 app.mount("#app")

@@ -9,7 +9,15 @@
             <div class="box">
                 <div class="content">
                     <div class="info">
-                        <span>{{ post.author_name }}</span>
+                        <div class="author">
+                            <Avatar :src="post.author_avatar_url"></Avatar>
+                            <div class="name-bio">
+                                <p class="name">{{ post.author_name }}</p>
+                                <p>
+                                    {{ post.author_bio || "对方还没写介绍~" }}
+                                </p>
+                            </div>
+                        </div>
                         <span class="time">{{
                             $common.beautifulTime(post.publish_time)
                         }}</span>
@@ -53,6 +61,7 @@
     <el-dialog v-model="dialogVisible" title="发布框" width="600px">
         <el-input
             class="bottom20"
+            size="large"
             v-model="title"
             placeholder="请输入标题~"
         ></el-input>
@@ -72,6 +81,7 @@ import { ElMessage, ElNotification } from "element-plus"
 import { ChatRound, Pointer, View } from "@element-plus/icons-vue"
 
 import Editor from "../components/Editor.vue"
+// import Avatar from "../components/Avatar.vue"
 
 export default {
     components: { Editor, ChatRound, Pointer, View },
@@ -145,7 +155,7 @@ export default {
 }
 .post {
     border-radius: 8px;
-    background-color: var(--back-color);
+    background-color: var(--bg-color);
     padding: 20px;
 
     margin: 20px 0;
@@ -172,10 +182,11 @@ export default {
 }
 
 .thumbnail {
-    width: 180px;
-    height: 120px;
+    width: 220px;
+    height: 140px;
 
     object-fit: cover;
+    border-radius: 8px;
 }
 
 .info {
@@ -245,5 +256,20 @@ export default {
     align-items: center;
 
     gap: 5px;
+}
+
+.author {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    font-size: 14px;
+}
+.author p {
+    margin: 0;
+}
+.author .name {
+    font-weight: bold;
+    margin-bottom: 4px;
 }
 </style>

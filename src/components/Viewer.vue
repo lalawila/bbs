@@ -1,5 +1,8 @@
 <template>
-    <div ref="viewer"></div>
+    <div
+        ref="viewer"
+        :class="{ 'toastui-editor-dark': themeStore.isDark }"
+    ></div>
 </template>
 <script>
 import Viewer from "@toast-ui/editor/dist/toastui-editor-viewer"
@@ -21,7 +24,7 @@ export default {
         this.viewer = new Viewer({
             el: this.$refs.viewer,
             initialValue: this.content,
-            theme: this.themeStore.isDark ? "dark" : "light",
+            // theme: this.themeStore.isDark ? "dark" : "light",
         })
     },
     watch: {

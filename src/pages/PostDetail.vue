@@ -3,7 +3,19 @@
         <div class="detail">
             <h2 class="title">{{ title }}</h2>
             <div class="info">
-                <span>{{ authorName }}</span>
+                <router-link
+                    v-if="authorId"
+                    :to="{ name: 'userDetail', params: { userId: authorId } }"
+                    class="author"
+                >
+                    <Avatar :src="authorAvatarUrl"></Avatar>
+                    <div class="name-bio">
+                        <p class="name">{{ authorName }}</p>
+                        <p>
+                            {{ authorBio || "对方还没写介绍~" }}
+                        </p>
+                    </div>
+                </router-link>
                 <span class="time">{{
                     $common.beautifulTime(publishTime)
                 }}</span>
@@ -26,6 +38,7 @@
                         {{ thumbAmount }}</el-button
                     >
                     <el-button type="primary" @click="showEditor" plain
+                        ><el-icon class="right10"><ChatRound /></el-icon
                         >写讨论</el-button
                     >
                 </div>
@@ -60,13 +73,14 @@ import { useUserStore } from "../stores/user"
 import { ElMessage } from "element-plus"
 import { ElNotification } from "element-plus"
 
-import { Pointer } from "@element-plus/icons-vue"
+import { Pointer, ChatRound } from "@element-plus/icons-vue"
 
 import Viewer from "../components/Viewer.vue"
 import Editor from "../components/Editor.vue"
+import Avatar from "../components/Avatar.vue"
 
 export default {
-    components: { Viewer, Editor, Pointer },
+    components: { Viewer, Avatar, Editor, Pointer, ChatRound },
     data() {
         const userStore = useUserStore()
         return {
@@ -75,7 +89,10 @@ export default {
             limit: 10,
             title: "",
             content: "",
+            authorId: null,
             authorName: "",
+            authorAvatarUrl: "",
+            authorBio: "",
             publishTime: null,
             discussions: [], // 讨论列表
             disscussionAmount: null,
@@ -138,7 +155,11 @@ export default {
 
             this.title = response.data.title
             this.content = response.data.content
+            this.authorId = response.data.author_id
             this.authorName = response.data.author_name
+            this.authorAvatarUrl = response.data.author_avatar_url
+            this.authorBio = response.data.author_bio
+
             this.publishTime = response.data.publish_time
             this.isThumb = response.data.is_thumb
             this.thumbAmount = response.data.thumb_amount
@@ -220,7 +241,7 @@ export default {
 
 .detail {
     padding: 20px;
-    background-color: var(--back-color);
+    background-color: var(--bg-color);
 
     border-radius: 8px;
 
@@ -259,7 +280,7 @@ export default {
 
 .discussion {
     padding: 20px;
-    background-color: var(--back-color);
+    background-color: var(--bg-color);
 
     border-radius: 8px;
 
@@ -268,5 +289,23 @@ export default {
 .nomore {
     text-align: center;
     font-size: 14px;
+}
+
+.author {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    font-size: 14px;
+
+    color: inherit;
+    text-decoration: none;
+}
+.author p {
+    margin: 0;
+}
+.author .name {
+    font-weight: bold;
+    margin-bottom: 4px;
 }
 </style>

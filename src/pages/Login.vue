@@ -1,14 +1,25 @@
 <template>
     <div class="login">
         <h1>登录</h1>
-        <el-input size="large" placeholder="请输入用户名" v-model="username">
+        <el-input
+            id="username"
+            size="large"
+            placeholder="请输入用户名"
+            v-model="username"
+        >
             <template #prepend>
-                <label>用户名</label>
+                <label for="username">用户名</label>
             </template>
         </el-input>
-        <el-input size="large" placeholder="请输入密码" v-model="password">
+        <el-input
+            id="password"
+            size="large"
+            placeholder="请输入密码"
+            v-model="password"
+            show-password
+        >
             <template #prepend>
-                <label>密码</label>
+                <label for="password">密码</label>
             </template>
         </el-input>
         <el-button class="btn" type="primary" size="large" round @click="login"
@@ -38,7 +49,7 @@ export default {
                 )
                 this.userStore.setToken(response.data.token)
                 this.$router.push({
-                    name: "home",
+                    path: this.$route.query.redirect,
                 })
             } catch (error) {
                 if (error.response.data.code === 2000) {
@@ -57,7 +68,7 @@ export default {
 
     margin: 0 auto;
 
-    background-color: var(--back-color);
+    background-color: var(--bg-color);
 
     display: flex;
     flex-direction: column;

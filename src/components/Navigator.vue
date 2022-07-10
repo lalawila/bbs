@@ -6,14 +6,25 @@
             >
             <div class="right">
                 <el-switch
-                    v-model="themeStore.isDark"
+                    class="right20"
+                    :model-value="themeStore.isDark"
+                    @change="themeStore.toggleTheme()"
                     size="large"
                     inline-prompt
                     :active-icon="MoonNight"
                     :inactive-icon="Sunrise"
                 />
                 <el-dropdown v-if="userStore.isLogged">
-                    <label>{{ userStore.username }}</label>
+                    <router-link
+                        :to="{
+                            name: 'userDetail',
+                            params: { userId: userStore.userId },
+                        }"
+                        class="user"
+                    >
+                        <Avatar :src="userStore.avatarUrl"></Avatar>
+                        <label class="username">{{ userStore.username }}</label>
+                    </router-link>
                     <template #dropdown>
                         <el-dropdown-menu>
                             <el-dropdown-item @click="userStore.logout"
@@ -24,12 +35,22 @@
                 </el-dropdown>
                 <template v-else>
                     <el-button text
-                        ><router-link :to="{ name: 'login' }"
+                        ><router-link
+                            :to="{
+                                name: 'login',
+                                query: { redirect: $route.fullPath },
+                            }"
                             >登录</router-link
                         ></el-button
                     >
                     <el-button text>
-                        <router-link :to="{ name: 'signup' }">注册</router-link>
+                        <router-link
+                            :to="{
+                                name: 'signup',
+                                query: { redirect: $route.fullPath },
+                            }"
+                            >注册</router-link
+                        >
                     </el-button>
                 </template>
             </div>
@@ -63,7 +84,7 @@ export default {
 <style scoped>
 .navigator {
     margin-bottom: 40px;
-    background-color: var(--back-color);
+    background-color: var(--bg-color);
 }
 
 .navigator .box {
@@ -88,6 +109,11 @@ export default {
 .right {
     display: flex;
     align-items: center;
-    gap: 20px;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 </style>
