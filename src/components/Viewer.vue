@@ -1,5 +1,6 @@
 <template>
     <div
+        class="viewer"
         ref="viewer"
         :class="{ 'toastui-editor-dark': themeStore.isDark }"
     ></div>
@@ -28,9 +29,14 @@ export default {
         })
     },
     watch: {
-        content(newValue) {
-            this.viewer.setMarkdown(newValue)
+        content(value) {
+            this.viewer.setMarkdown(value)
         },
     },
 }
 </script>
+<style scoped>
+.viewer {
+    margin: 20px 0;
+}
+</style>

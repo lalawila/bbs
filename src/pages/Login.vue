@@ -48,12 +48,19 @@ export default {
                     this.password
                 )
                 this.userStore.setToken(response.data.token)
-                this.$router.push({
-                    path: this.$route.query.redirect,
-                })
             } catch (error) {
                 if (error.response.data.code === 2000) {
                     ElMessage.error("用户名或密码错误。")
+                }
+            } finally {
+                if (this.$route.query.redirect) {
+                    this.$router.push({
+                        path: this.$route.query.redirect,
+                    })
+                } else {
+                    this.$router.push({
+                        name: "home",
+                    })
                 }
             }
         },

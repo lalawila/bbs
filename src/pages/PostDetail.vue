@@ -56,7 +56,19 @@
         </div>
         <div v-for="discussion in discussions" class="discussion">
             <div class="info">
-                <span class="author-name">{{ discussion.author_name }}</span>
+                <router-link
+                    v-if="authorId"
+                    :to="{ name: 'userDetail', params: { userId: authorId } }"
+                    class="author"
+                >
+                    <Avatar :src="authorAvatarUrl"></Avatar>
+                    <div class="name-bio">
+                        <p class="name">{{ authorName }}</p>
+                        <p>
+                            {{ authorBio || "对方还没写介绍~" }}
+                        </p>
+                    </div>
+                </router-link>
                 <span class="time">{{
                     $common.beautifulTime(discussion.publish_time)
                 }}</span>
@@ -266,6 +278,7 @@ export default {
 .operations {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .operations .item {
     font-size: 14px;

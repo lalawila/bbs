@@ -21,6 +21,9 @@ export default {
     },
     mounted() {
         this.refreshUserInfo()
+
+        // 设置 Element-UI 的主题模式（日间、夜间）
+        this.themeStore.setHtmlTheme()
     },
     computed: {
         themeClass() {

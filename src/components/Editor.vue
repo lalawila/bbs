@@ -1,5 +1,6 @@
 <template>
     <div
+        class="editor"
         ref="editor"
         :class="{ 'toastui-editor-dark': themeStore.isDark }"
     ></div>
@@ -13,9 +14,15 @@ import { useThemeStore } from "../stores/theme"
 
 export default {
     props: ["modelValue"],
+    step() {
+        // 防止 editor 转换成 proxy 对象后的 bug
+        return {
+            editor: null,
+        }
+    },
     data() {
         const themeStore = useThemeStore()
-        return { themeStore, editor: null }
+        return { themeStore }
     },
     async mounted() {
         this.editor = new Editor({
@@ -27,7 +34,10 @@ export default {
             previewStyle: "tab",
             // theme: this.themeStore.isDark ? "dark" : "light",
             events: {
-                change: this.onchange,
+                change: () => {
+                    this.content = this.editor.getMarkdown()
+                    this.$emit("update:modelValue", this.content)
+                },
             },
             hooks: {
                 addImageBlobHook: async (file, callback) => {
@@ -37,10 +47,18 @@ export default {
             },
         })
     },
-    methods: {
-        onchange() {
-            this.$emit("update:modelValue", this.editor.getMarkdown())
+    watch: {
+        modelValue(value) {
+            if (value != this.content) {
+                // 设置编辑器的值
+                this.editor.setMarkdown(value)
+            }
         },
     },
 }
 </script>
+<style scoped>
+.editor {
+    margin: 20px 0;
+}
+</style>
