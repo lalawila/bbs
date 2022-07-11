@@ -27,7 +27,11 @@
                     </router-link>
                     <template #dropdown>
                         <el-dropdown-menu>
-                            <el-dropdown-item @click="userStore.logout"
+                            <el-dropdown-item
+                                @click="$router.push({ name: 'setting' })"
+                                >设置</el-dropdown-item
+                            >
+                            <el-dropdown-item divided @click="userStore.logout"
                                 >退出登录</el-dropdown-item
                             >
                         </el-dropdown-menu>

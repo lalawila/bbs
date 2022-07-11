@@ -5,6 +5,7 @@ import Login from "../pages/Login.vue"
 import Signup from "../pages/Signup.vue"
 import PostDetail from "../pages/PostDetail.vue"
 import UserDetail from "../pages/UserDetail.vue"
+import Setting from "../pages/Setting.vue"
 
 const routes = [
     {
@@ -31,6 +32,11 @@ const routes = [
         name: "userDetail",
         path: "/user/:userId",
         component: UserDetail,
+    },
+    {
+        name: "setting",
+        path: "/setting",
+        component: Setting,
     },
 ]
 

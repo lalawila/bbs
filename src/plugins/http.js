@@ -6,7 +6,8 @@ export default {
         const userStore = useUserStore()
 
         const http = axios.create({
-            baseURL: "https://3yya.com/u/d8cf630cf5f367cc/bbs/app",
+            // baseURL: "https://3yya.com/u/d8cf630cf5f367cc/bbs/app",
+            baseURL: "http://127.0.0.1:9000/u/d8cf630cf5f367cc/bbs/app",
         })
 
         // 添加请求拦截器

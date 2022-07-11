@@ -90,6 +90,31 @@ export default {
             })
         }
 
+        function updateSelf({
+            avatar = null,
+            bio = null,
+            password = null,
+        } = {}) {
+            // 用户设置
+            const formData = new FormData()
+
+            if (avatar) {
+                formData.append("avatar", avatar)
+            }
+
+            if (bio != null) {
+                formData.append("bio", bio)
+            }
+
+            if (password) {
+                formData.append("password", password)
+            }
+
+            return http.put("/self/user", formData, {
+                "Content-Type": "multipart/form-data",
+            })
+        }
+
         // 将 api 绑定到全局属性中
         app.config.globalProperties.$api = {
             getPosts,
@@ -103,6 +128,7 @@ export default {
             thumbUp,
             cancelThumbUp,
             uploadImage,
+            updateSelf,
         }
     },
 }
