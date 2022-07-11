@@ -18,9 +18,10 @@ export const useUserStore = defineStore("user", {
         setToken(token) {
             this.token = token
         },
-        setUserInfo({ userId = null, username = "" } = {}) {
+        setUserInfo({ userId = null, username = "", avatarUrl = "" } = {}) {
             this.userId = userId
             this.username = username
+            this.avatarUrl = avatarUrl
         },
         logout() {
             this.token = null

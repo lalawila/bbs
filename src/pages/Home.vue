@@ -50,6 +50,7 @@
         </router-link>
         <el-pagination
             class="pagination"
+            v-model="page"
             background
             layout="prev, pager, next"
             :total="amount"
@@ -95,7 +96,7 @@ export default {
             dialogVisible: false, // 发布对话框
             title: "", // 标题
             content: "", // 内容
-            amount: null,
+            amount: 0,
         }
     },
     mounted() {

@@ -44,7 +44,7 @@
         >
         <div>
             <el-button type="text" @click="isSetPwd = !isSetPwd">{{
-                isSetPwd ? "取消密码" : "设置密码"
+                isSetPwd ? "取消密码设置" : "设置密码"
             }}</el-button>
             <el-button @click="update">确认</el-button>
         </div>

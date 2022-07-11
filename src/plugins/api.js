@@ -115,6 +115,21 @@ export default {
             })
         }
 
+        function getUserDetail(userId) {
+            // 用户详情数据
+            return http.get(`/users/${userId}`)
+        }
+
+        function getUserPosts(userId, { page = 1, limit = 10 } = {}) {
+            // 用户详情数据
+            return http.get(`/users/${userId}/posts`, {
+                params: {
+                    page,
+                    limit,
+                },
+            })
+        }
+
         // 将 api 绑定到全局属性中
         app.config.globalProperties.$api = {
             getPosts,
@@ -129,6 +144,8 @@ export default {
             cancelThumbUp,
             uploadImage,
             updateSelf,
+            getUserDetail,
+            getUserPosts,
         }
     },
 }
