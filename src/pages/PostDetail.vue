@@ -57,7 +57,6 @@
         <div v-for="discussion in discussions" class="discussion">
             <div class="info">
                 <router-link
-                    v-if="authorId"
                     :to="{ name: 'userDetail', params: { userId: authorId } }"
                     class="author"
                 >
@@ -104,6 +103,7 @@ export default {
             content: "", // 内容
             authorId: null, // 作者 id
             authorName: "", // 作者名
+            authorBio: "", // 个性签名
             authorAvatarUrl: "", // 作者头像地址
             publishTime: null, // 发布时间
             isThumb: false, // 是否点赞
