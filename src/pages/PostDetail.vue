@@ -178,6 +178,9 @@ export default {
             this.isThumb = response.data.is_thumb
             this.thumbAmount = response.data.thumb_amount
             this.visitAmount = response.data.visit_amount
+
+            // 页面标题
+            document.title = response.data.title
         },
         async getDiscussions() {
             // 刷新讨论
