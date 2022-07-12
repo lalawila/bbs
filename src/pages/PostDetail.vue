@@ -97,23 +97,22 @@ export default {
         const userStore = useUserStore()
         return {
             userStore,
+            getting: false,
             page: 1,
             limit: 10,
-            title: "",
-            content: "",
-            authorId: null,
-            authorName: "",
-            authorAvatarUrl: "",
-            authorBio: "",
-            publishTime: null,
+            title: "", // 标题
+            content: "", // 内容
+            authorId: null, // 作者 id
+            authorName: "", // 作者名
+            authorAvatarUrl: "", // 作者头像地址
+            publishTime: null, // 发布时间
+            isThumb: false, // 是否点赞
+            thumbAmount: null, // 点赞数
+            visitAmount: null, // 阅读数
+            editorVisible: false, // 讨论发布框
+            discussion: "", // 待发布的讨论内容
             discussions: [], // 讨论列表
-            disscussionAmount: null,
-            editorVisible: false,
-            discussion: "",
-            isThumb: false,
-            thumbAmount: null,
-            visitAmount: null,
-            getting: false,
+            disscussionAmount: null, // 讨论的数量
         }
     },
     mounted() {
@@ -136,29 +135,32 @@ export default {
     methods: {
         async onScroll() {
             // 下拉加载：2. 判断滚动条接近底部，100 个像素以内
-            let bottomOfWindow =
-                document.documentElement.scrollTop +
-                    document.documentElement.clientHeight >
-                document.documentElement.offsetHeight - 100
-            // scrollTop：滚动上去的距离
-            // clientHeight：元素可见区域的高度
-            // offsetHeight：整个元素的高度
 
-            // console.log("scrollTop:", document.documentElement.scrollTop)
-            // console.log("innerHeight:", window.innerHeight)
-            // console.log("offsetHeight:", document.documentElement.offsetHeight)
-            if (bottomOfWindow) {
-                // 如果没有更多数据则退出
-                if (this.isNomore) return
+            // 滚动距离页面底部的距离
+            let bottomOfWindowLen =
+                document.documentElement.offsetHeight -
+                (document.documentElement.scrollTop +
+                    document.documentElement.clientHeight)
 
-                // 如果正在获取数据则退出
+            if (bottomOfWindowLen < 100) {
+                // 存在正在获取的讨论数据，结束
                 if (this.getting) return
+
+                // 如果没有更多讨论数据，结束
+                if (this.isNomore) return
 
                 this.getting = true
                 this.page += 1
                 await this.getDiscussions()
                 this.getting = false
             }
+
+            // scrollTop：滚动上去的距离
+            // clientHeight：元素可见区域的高度
+            // offsetHeight：整个元素的高度
+            // console.log("scrollTop:", document.documentElement.scrollTop)
+            // console.log("clientHeight:", document.documentElement.clientHeight)
+            // console.log("offsetHeight:", document.documentElement.offsetHeight)
         },
         async getDetail() {
             const response = await this.$api.getPostDetail(
