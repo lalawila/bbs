@@ -130,6 +130,11 @@ export default {
             })
         }
 
+        function getHot() {
+            // 热榜数据
+            return http.get("hot")
+        }
+
         // 将 api 绑定到全局属性中
         app.config.globalProperties.$api = {
             getPosts,
@@ -146,6 +151,7 @@ export default {
             updateSelf,
             getUserDetail,
             getUserPosts,
+            getHot,
         }
     },
 }

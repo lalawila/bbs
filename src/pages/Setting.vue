@@ -169,6 +169,9 @@ export default {
 
     width: max-content;
     height: max-content;
+
+    /* 防止阻挡头像的 hover 选择器 */
+    pointer-events: none;
 }
 .box {
     position: relative;

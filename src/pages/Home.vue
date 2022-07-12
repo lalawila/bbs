@@ -1,5 +1,31 @@
 <template>
     <div class="container">
+        <el-carousel
+            v-if="hotList.length > 0"
+            :interval="4000"
+            type="card"
+            height="200px"
+        >
+            <el-carousel-item
+                class="carousel-item"
+                v-for="post in hotList"
+                :key="post.post_id"
+            >
+                <router-link
+                    :to="{
+                        name: 'postDetail',
+                        params: { postId: post.post_id },
+                    }"
+                >
+                    <img
+                        v-if="post.thumbnail_url"
+                        :src="post.thumbnail_url"
+                        alt="缩略图"
+                    />
+                    <h3 v-else>{{ post.title }}</h3>
+                </router-link>
+            </el-carousel-item>
+        </el-carousel>
         <router-link
             :to="{ name: 'postDetail', params: { postId: post.post_id } }"
             class="post"
@@ -97,12 +123,18 @@ export default {
             title: "", // 标题
             content: "", // 内容
             amount: 0,
+            hotList: [], // 热榜帖子
         }
     },
     mounted() {
+        this.getHot()
         this.getPosts()
     },
     methods: {
+        async getHot() {
+            const response = await this.$api.getHot()
+            this.hotList = response.data.results
+        },
         async getPosts() {
             const response = await this.$api.getPosts({
                 page: this.page,
@@ -154,6 +186,23 @@ export default {
     margin: 0 auto;
     padding-bottom: 50px;
 }
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+.carousel-item a {
+    text-decoration: none;
+}
+.carousel-item h3 {
+    color: #475669;
+    line-height: 200px;
+    margin: 0;
+    text-align: center;
+    background-color: #99a9bf;
+}
+
 .post {
     border-radius: 8px;
     background-color: var(--bg-color);
