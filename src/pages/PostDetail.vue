@@ -57,14 +57,17 @@
         <div v-for="discussion in discussions" class="discussion">
             <div class="info">
                 <router-link
-                    :to="{ name: 'userDetail', params: { userId: authorId } }"
+                    :to="{
+                        name: 'userDetail',
+                        params: { userId: discussion.author_id },
+                    }"
                     class="author"
                 >
-                    <Avatar :src="authorAvatarUrl"></Avatar>
+                    <Avatar :src="discussion.author_avatar_url"></Avatar>
                     <div class="name-bio">
-                        <p class="name">{{ authorName }}</p>
+                        <p class="name">{{ discussion.author_name }}</p>
                         <p>
-                            {{ authorBio || "对方还没写介绍~" }}
+                            {{ discussion.author_bio || "对方还没写介绍~" }}
                         </p>
                     </div>
                 </router-link>
@@ -180,7 +183,7 @@ export default {
             this.visitAmount = response.data.visit_amount
 
             // 页面标题
-            document.title = response.data.title
+            document.title = this.title
         },
         async getDiscussions() {
             // 刷新讨论

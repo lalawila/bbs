@@ -16,6 +16,7 @@
                 />
                 <el-dropdown v-if="userStore.isLogged">
                     <router-link
+                        v-if="userStore.userId"
                         :to="{
                             name: 'userDetail',
                             params: { userId: userStore.userId },
